@@ -1,0 +1,137 @@
+{
+  "groups": [
+    {
+      "name": "通用",
+      "symbols": [
+        { "name": "link", "label": "链接" },
+        { "name": "arrow.up.right.square", "label": "外部链接" },
+        { "name": "bolt.fill", "label": "闪电" },
+        { "name": "star.fill", "label": "收藏" },
+        { "name": "cart.fill", "label": "购物车" },
+        { "name": "book.closed.fill", "label": "书" },
+        { "name": "film.fill", "label": "影片" },
+        { "name": "music.note", "label": "音乐" },
+        { "name": "house.fill", "label": "首页" },
+        { "name": "gearshape.fill", "label": "设置" },
+        { "name": "magnifyingglass", "label": "搜索" },
+        { "name": "bell.fill", "label": "通知" },
+        { "name": "heart.fill", "label": "喜欢" },
+        { "name": "bookmark.fill", "label": "书签" },
+        { "name": "globe", "label": "网页" }
+      ]
+    },
+    {
+      "name": "箭头",
+      "symbols": [
+        { "name": "arrow.up", "label": "向上" },
+        { "name": "arrow.down", "label": "向下" },
+        { "name": "arrow.left", "label": "向左" },
+        { "name": "arrow.right", "label": "向右" },
+        { "name": "arrow.up.right", "label": "右上" },
+        { "name": "arrow.down.left", "label": "左下" },
+        { "name": "arrow.left.arrow.right", "label": "双向" },
+        { "name": "arrow.triangle.2.circlepath", "label": "刷新" },
+        { "name": "arrow.clockwise", "label": "顺时针" },
+        { "name": "arrow.counterclockwise", "label": "逆时针" },
+        { "name": "chevron.up", "label": "上折" },
+        { "name": "chevron.down", "label": "下折" }
+      ]
+    },
+    {
+      "name": "媒体",
+      "symbols": [
+        { "name": "play.fill", "label": "播放" },
+        { "name": "pause.fill", "label": "暂停" },
+        { "name": "stop.fill", "label": "停止" },
+        { "name": "backward.fill", "label": "快退" },
+        { "name": "forward.fill", "label": "快进" },
+        { "name": "speaker.wave.2.fill", "label": "音量" },
+        { "name": "headphones", "label": "耳机" },
+        { "name": "photo.fill", "label": "照片" },
+        { "name": "camera.fill", "label": "相机" },
+        { "name": "video.fill", "label": "录像" },
+        { "name": "mic.fill", "label": "麦克风" },
+        { "name": "tv.fill", "label": "电视" },
+        { "name": "rectangle.stack.fill", "label": "卡片" },
+        { "name": "music.note.list", "label": "歌单" }
+      ]
+    },
+    {
+      "name": "通讯",
+      "symbols": [
+        { "name": "message.fill", "label": "消息" },
+        { "name": "phone.fill", "label": "电话" },
+        { "name": "envelope.fill", "label": "邮件" },
+        { "name": "paperplane.fill", "label": "发送" },
+        { "name": "person.fill", "label": "个人" },
+        { "name": "person.2.fill", "label": "联系人" },
+        { "name": "person.crop.circle.fill", "label": "头像" },
+        { "name": "bubble.left.and.bubble.right.fill", "label": "对话" },
+        { "name": "video.badge.plus", "label": "视频通话" },
+        { "name": "phone.arrow.up.right", "label": "呼出" },
+        { "name": "envelope.open.fill", "label": "收件" },
+        { "name": "at", "label": "提及" }
+      ]
+    },
+    {
+      "name": "生活",
+      "symbols": [
+        { "name": "sun.max.fill", "label": "晴天" },
+        { "name": "moon.fill", "label": "月亮" },
+        { "name": "cloud.fill", "label": "云" },
+        { "name": "umbrella.fill", "label": "雨伞" },
+        { "name": "leaf.fill", "label": "叶子" },
+        { "name": "flame.fill", "label": "火焰" },
+        { "name": "drop.fill", "label": "水滴" },
+        { "name": "snowflake", "label": "雪花" },
+        { "name": "fork.knife", "label": "用餐" },
+        { "name": "cup.and.saucer.fill", "label": "咖啡" },
+        { "name": "bed.double.fill", "label": "睡眠" },
+        { "name": "figure.walk", "label": "步行" },
+        { "name": "bicycle", "label": "骑行" },
+        { "name": "car.fill", "label": "汽车" },
+        { "name": "airplane", "label": "飞机" },
+        { "name": "tram.fill", "label": "地铁" }
+      ]
+    },
+    {
+      "name": "商务",
+      "symbols": [
+        { "name": "briefcase.fill", "label": "工作" },
+        { "name": "building.2.fill", "label": "公司" },
+        { "name": "chart.bar.fill", "label": "柱状图" },
+        { "name": "chart.pie.fill", "label": "饼图" },
+        { "name": "doc.text.fill", "label": "文档" },
+        { "name": "folder.fill", "label": "文件夹" },
+        { "name": "tray.fill", "label": "收件箱" },
+        { "name": "calendar", "label": "日历" },
+        { "name": "clock.fill", "label": "时钟" },
+        { "name": "creditcard.fill", "label": "银行卡" },
+        { "name": "banknote.fill", "label": "纸币" },
+        { "name": "dollarsign.circle.fill", "label": "金额" },
+        { "name": "chart.bar.xaxis", "label": "数据" }
+      ]
+    },
+    {
+      "name": "编辑与设备",
+      "symbols": [
+        { "name": "pencil", "label": "编辑" },
+        { "name": "square.and.pencil", "label": "写" },
+        { "name": "trash.fill", "label": "删除" },
+        { "name": "plus", "label": "加" },
+        { "name": "minus", "label": "减" },
+        { "name": "xmark", "label": "关闭" },
+        { "name": "checkmark", "label": "对勾" },
+        { "name": "ellipsis", "label": "更多" },
+        { "name": "square.grid.2x2.fill", "label": "宫格" },
+        { "name": "list.bullet", "label": "列表" },
+        { "name": "text.alignleft", "label": "文本" },
+        { "name": "wifi", "label": "无线" },
+        { "name": "bluetooth", "label": "蓝牙" },
+        { "name": "battery.75", "label": "电量" },
+        { "name": "display", "label": "显示器" },
+        { "name": "keyboard.fill", "label": "键盘" }
+      ]
+    }
+  ]
+}

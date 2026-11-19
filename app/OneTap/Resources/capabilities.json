@@ -1,0 +1,64 @@
+{
+  "apps": [
+    {
+      "id": "wechat",
+      "name": "微信",
+      "tagline": "扫一扫有非公开入口，付款码没有可靠入口已移除",
+      "glyph": "message.fill",
+      "tint": "#07C160",
+      "scheme": "weixin",
+      "actions": [
+        {
+          "id": "scan",
+          "title": "扫一扫",
+          "subtitle": "weixin://scanqrcode · 社区常用入口",
+          "url": "weixin://scanqrcode"
+        }
+      ]
+    },
+    {
+      "id": "alipay",
+      "name": "支付宝",
+      "tagline": "扫一扫、付款码、乘车码均有社区入口",
+      "glyph": "creditcard.fill",
+      "tint": "#1677FF",
+      "scheme": "alipay",
+      "actions": [
+        {
+          "id": "scan",
+          "title": "扫一扫",
+          "subtitle": "alipayqr://platformapi/startapp · saId=10000007",
+          "url": "alipayqr://platformapi/startapp?saId=10000007"
+        },
+        {
+          "id": "pay",
+          "title": "付款码",
+          "subtitle": "alipayqr://platformapi/startapp · appId=20000056",
+          "url": "alipayqr://platformapi/startapp?appId=20000056"
+        },
+        {
+          "id": "ride",
+          "title": "乘车码",
+          "subtitle": "alipayqr://platformapi/startapp · saId=200011235",
+          "url": "alipayqr://platformapi/startapp?saId=200011235"
+        }
+      ]
+    },
+    {
+      "id": "qqmusic",
+      "name": "QQ 音乐",
+      "tagline": "只保留打开 App 的入口",
+      "glyph": "music.note",
+      "tint": "#31C27C",
+      "scheme": "qqmusic",
+      "actions": [
+        {
+          "id": "open",
+          "title": "打开 QQ 音乐",
+          "subtitle": "qqmusic:// · 只能打开 App",
+          "url": "qqmusic://"
+        }
+      ]
+    }
+  ]
+}

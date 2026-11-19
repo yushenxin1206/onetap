@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Xcode 构建产物
+app/build/
+DerivedData/
+build/
+
+# Xcode 用户数据
+xcuserdata/
+*.xcuserstate
+
+# 生成的发布产物与截图
+outputs/
