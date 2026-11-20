@@ -265,7 +265,7 @@ final class LibraryCoordinator: ObservableObject {
     private func scheduleUndoExpiry() {
         guard let id = undo?.id else { return }
         Task { @MainActor [weak self] in
-            try? await Task.sleep(nanoseconds: 8_000_000_000)
+            try? await Task.sleep(nanoseconds: 5_000_000_000)
             guard let self, self.undo?.id == id else { return }
             self.undo = nil
         }

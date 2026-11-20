@@ -274,6 +274,7 @@ struct ActionEditorView: View {
     @State private var url: String
     @State private var shortcutName: String
     @State private var subtitle: String
+    @State private var customTitle: Bool
     @State private var showDiscard = false
 
     init(appID: String, appName: String, original: CapabilityAction?, onSave: @escaping (CapabilityAction) -> Void) {
@@ -286,6 +287,9 @@ struct ActionEditorView: View {
         _url = State(initialValue: original?.normalizedURL ?? "")
         _shortcutName = State(initialValue: original?.shortcutName ?? "")
         _subtitle = State(initialValue: original?.subtitle ?? "")
+        let existingTitle = original?.title ?? ""
+        let existingName = original?.shortcutName ?? ""
+        _customTitle = State(initialValue: original?.isBridge == true && existingTitle != existingName)
     }
 
     private var trimmedTitle: String {
@@ -305,10 +309,9 @@ struct ActionEditorView: View {
     }
 
     private var canSave: Bool {
-        guard !trimmedTitle.isEmpty else { return false }
         switch kind {
         case .link:
-            return urlIsValid
+            return !trimmedTitle.isEmpty && urlIsValid
         case .shortcut:
             return !trimmedShortcutName.isEmpty
         }
@@ -334,14 +337,14 @@ struct ActionEditorView: View {
                         .foregroundStyle(Theme.muted)
                         .padding(.top, 4)
 
-                    fieldLabel("动作名称")
-                    inputField("比如 打开工作台", text: $title)
-
                     fieldLabel("动作类型")
                     kindChips
 
                     switch kind {
                     case .link:
+                        fieldLabel("动作名称")
+                        inputField("比如 打开工作台", text: $title)
+
                         fieldLabel("地址")
                         inputField("weixin:// 或 https://…", text: $url)
                             .textInputAutocapitalization(.never)
@@ -363,6 +366,9 @@ struct ActionEditorView: View {
                             .padding(.top, 8)
                             .padding(.horizontal, 2)
                     case .shortcut:
+                        fieldLabel("动作名称")
+                        shortcutTitleEditor
+
                         fieldLabel("快捷指令名称")
                         inputField("比如 播放每日推荐", text: $shortcutName)
 
@@ -410,11 +416,55 @@ struct ActionEditorView: View {
 
     private var isDirty: Bool {
         let initialKind: ActionKind = original?.isBridge == true ? .shortcut : .link
+        let initialCustom = original?.isBridge == true
+            && (original?.title ?? "") != (original?.shortcutName ?? "")
+        let titleChanged: Bool
+        switch kind {
+        case .link:
+            titleChanged = trimmedTitle != (original?.title ?? "")
+        case .shortcut:
+            titleChanged = customTitle != initialCustom
+                || (customTitle && trimmedTitle != (original?.title ?? ""))
+        }
         return kind != initialKind
-            || title != (original?.title ?? "")
+            || titleChanged
             || url != (original?.normalizedURL ?? "")
             || shortcutName != (original?.shortcutName ?? "")
             || subtitle != (original?.subtitle ?? "")
+    }
+
+    /// 运行快捷指令：未开自定义时标题跟随快捷指令名；开了但留空也回落。
+    private var effectiveTitle: String {
+        switch kind {
+        case .link:
+            return trimmedTitle
+        case .shortcut:
+            guard customTitle else { return trimmedShortcutName }
+            return trimmedTitle.isEmpty ? trimmedShortcutName : trimmedTitle
+        }
+    }
+
+    private var shortcutTitleEditor: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 10) {
+                if !customTitle {
+                    Text("默认与快捷指令名相同")
+                        .font(Theme.textFont(12))
+                        .foregroundStyle(Theme.muted)
+                }
+                Spacer(minLength: 0)
+                Toggle("自定义名称", isOn: $customTitle)
+                    .font(Theme.textFont(12))
+                    .foregroundStyle(Theme.ink2)
+                    .tint(Theme.ink)
+                    .fixedSize()
+            }
+
+            if customTitle {
+                inputField("不填则跟随快捷指令名", text: $title)
+            }
+        }
+        .padding(.top, 2)
     }
 
     private var kindChips: some View {
@@ -486,7 +536,7 @@ struct ActionEditorView: View {
             shortcutName: nil
         )
 
-        saved.title = trimmedTitle
+        saved.title = effectiveTitle
         saved.subtitle = subtitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             ? nil
             : subtitle.trimmingCharacters(in: .whitespacesAndNewlines)
