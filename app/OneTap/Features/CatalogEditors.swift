@@ -28,7 +28,7 @@ struct AppEditorView: View {
         self.original = original
         self.onSave = onSave
         _name = State(initialValue: original?.name ?? "")
-        _tagline = State(initialValue: original?.tagline ?? "自定义入口")
+        _tagline = State(initialValue: original?.tagline ?? "")
         _glyph = State(initialValue: original?.glyph ?? "link")
         _tint = State(initialValue: original?.tint ?? "#2E6BE6")
     }
@@ -111,7 +111,7 @@ struct AppEditorView: View {
 
     private var isDirty: Bool {
         name != (original?.name ?? "")
-            || tagline != (original?.tagline ?? "自定义入口")
+            || tagline != (original?.tagline ?? "")
             || glyph != (original?.glyph ?? "link")
             || tint != (original?.tint ?? "#2E6BE6")
     }
