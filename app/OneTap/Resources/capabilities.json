@@ -3,7 +3,7 @@
     {
       "id": "wechat",
       "name": "微信",
-      "tagline": "扫一扫有非公开入口，付款码没有可靠入口已移除",
+      "tagline": "",
       "glyph": "message.fill",
       "tint": "#07C160",
       "scheme": "weixin",
@@ -19,7 +19,7 @@
     {
       "id": "alipay",
       "name": "支付宝",
-      "tagline": "扫一扫、付款码、乘车码均有社区入口",
+      "tagline": "",
       "glyph": "creditcard.fill",
       "tint": "#1677FF",
       "scheme": "alipay",
@@ -47,7 +47,7 @@
     {
       "id": "qqmusic",
       "name": "QQ 音乐",
-      "tagline": "只保留打开 App 的入口",
+      "tagline": "",
       "glyph": "music.note",
       "tint": "#31C27C",
       "scheme": "qqmusic",

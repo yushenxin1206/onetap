@@ -38,6 +38,13 @@ struct CapabilityApp: Codable, Identifiable, Hashable {
         }
         return "\(scheme)://"
     }
+
+    /// 副标题行：有自定义 tagline 就显示它，否则按入口数量派生。
+    var displayTagline: String {
+        let trimmed = tagline.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty { return trimmed }
+        return actions.isEmpty ? "还没有入口" : "\(actions.count) 个入口"
+    }
 }
 
 struct CapabilityAction: Codable, Identifiable, Hashable {

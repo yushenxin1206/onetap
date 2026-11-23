@@ -193,6 +193,14 @@ struct AppEditorView: View {
         .padding(.top, 2)
     }
 
+    /// 预览卡副标题：tagline 非空优先，否则按已有入口数量派生。
+    private var previewTagline: String {
+        let trimmed = tagline.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty { return trimmed }
+        let count = original?.actions.count ?? 0
+        return count == 0 ? "还没有入口" : "\(count) 个入口"
+    }
+
     private var previewCard: some View {
         HStack(spacing: 11) {
             GlyphBadge(symbol: glyph, tint: Color(hexString: tint), size: 36)
@@ -200,7 +208,7 @@ struct AppEditorView: View {
                 Text(trimmedName.isEmpty ? "未命名" : trimmedName)
                     .font(Theme.textFont(14, weight: .medium))
                     .foregroundStyle(Theme.ink)
-                Text(tagline.isEmpty ? "自定义入口" : tagline)
+                Text(previewTagline)
                     .font(Theme.textFont(10.5))
                     .foregroundStyle(Theme.muted)
                     .lineLimit(1)

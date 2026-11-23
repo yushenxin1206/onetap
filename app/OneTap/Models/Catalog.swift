@@ -26,6 +26,7 @@ final class CatalogStore: ObservableObject {
         {
             apps = decoded.apps
             Self.cleanupLegacyKeys()
+            refreshBuiltInTaglinesIfNeeded()
             return
         }
 
@@ -45,6 +46,7 @@ final class CatalogStore: ObservableObject {
                 }
                 Self.cleanupLegacyKeys()
             }
+            refreshBuiltInTaglinesIfNeeded()
             return
         }
 
@@ -54,6 +56,40 @@ final class CatalogStore: ObservableObject {
     }
 
     // MARK: - 查询
+
+    /// 把内置 App 里仍是历史默认文案的 tagline 清空，交给界面按入口数派生。
+    /// 用户自己填过的文案不动，也不重建目录、快捷或运行记录。
+    private func refreshBuiltInTaglinesIfNeeded() {
+        let key = "onetap.tagline.version"
+        guard OneTapShared.defaults.integer(forKey: key) < 2 else { return }
+
+        let legacyTaglines: [String: Set<String>] = [
+            "wechat": [
+                "扫一扫有非公开入口，付款码没有可靠入口已移除",
+                "直接打开微信扫一扫"
+            ],
+            "alipay": [
+                "扫一扫、付款码、乘车码均有社区入口",
+                "扫一扫、付款码、乘车码"
+            ],
+            "qqmusic": [
+                "只保留打开 App 的入口",
+                "直接打开 QQ 音乐"
+            ]
+        ]
+
+        var changed = false
+        for index in apps.indices {
+            guard
+                let legacy = legacyTaglines[apps[index].id],
+                legacy.contains(apps[index].tagline)
+            else { continue }
+            apps[index].tagline = ""
+            changed = true
+        }
+        if changed { _ = persist() }
+        OneTapShared.defaults.set(2, forKey: key)
+    }
 
     func app(id: String) -> CapabilityApp? {
         apps.first { $0.id == id }
