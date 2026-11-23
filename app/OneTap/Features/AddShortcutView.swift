@@ -11,6 +11,14 @@ struct AddShortcutView: View {
     @State private var query = ""
     @State private var draft: Draft?
 
+    /// true：添加后留在本页继续添加（从「我的快捷」进来）；
+    /// false：添加后关闭本页（首页「＋」原有行为）。
+    private let staysOpenAfterAdd: Bool
+
+    init(staysOpenAfterAdd: Bool = false) {
+        self.staysOpenAfterAdd = staysOpenAfterAdd
+    }
+
     fileprivate struct Draft: Identifiable {
         let id = UUID()
         let app: CapabilityApp
@@ -56,8 +64,8 @@ struct AddShortcutView: View {
                         actionID: draft.action.id
                     )
                 )
-                toast.show("已加到「我的快捷」末尾")
-                dismiss()
+                toast.show("已添加「\(title)」到末尾")
+                if !staysOpenAfterAdd { dismiss() }
             }
         }
     }

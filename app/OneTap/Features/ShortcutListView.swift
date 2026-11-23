@@ -11,6 +11,7 @@ struct ShortcutListView: View {
 
     @State private var renaming: Shortcut?
     @State private var editMode: EditMode = .inactive
+    @State private var adding = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,7 +31,12 @@ struct ShortcutListView: View {
                 Theme.bg.ignoresSafeArea()
 
                 if store.shortcuts.isEmpty {
-                    emptyState
+                    VStack(spacing: 0) {
+                        emptyState
+                        addRow
+                            .padding(.horizontal, 22)
+                            .padding(.bottom, 24)
+                    }
                 } else {
                     list
                 }
@@ -40,6 +46,12 @@ struct ShortcutListView: View {
         .sheet(item: $renaming) { shortcut in
             RenameShortcutView(shortcut: shortcut)
                 .environmentObject(store)
+        }
+        .sheet(isPresented: $adding) {
+            AddShortcutView(staysOpenAfterAdd: true)
+                .environmentObject(store)
+                .environmentObject(catalog)
+                .environmentObject(toast)
         }
         .overlay(alignment: .bottom) {
             UndoBar(bottomPadding: 20)
@@ -62,10 +74,43 @@ struct ShortcutListView: View {
                     delete(offsets)
                 }
             }
+
+            if editMode != .active {
+                Section {
+                    addRow
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 10, leading: 22, bottom: 5, trailing: 22))
+                }
+            }
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .environment(\.editMode, $editMode)
+    }
+
+    /// 列表末尾的新增入口，复用 AddShortcutView 的完整选动作 + 命名流程。
+    private var addRow: some View {
+        Button {
+            adding = true
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "plus")
+                    .font(.system(size: 13, weight: .semibold))
+                Text("添加一条快捷")
+                    .font(Theme.textFont(13, weight: .medium))
+                Spacer(minLength: 0)
+            }
+            .foregroundStyle(Theme.ink2)
+            .padding(.horizontal, 13)
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: Theme.radiusMedium, style: .continuous)
+                    .strokeBorder(Theme.lineSoft, lineWidth: 1)
+            )
+        }
+        .buttonStyle(PressableStyle(scale: 0.995))
     }
 
     private var emptyState: some View {
