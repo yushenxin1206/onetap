@@ -42,18 +42,7 @@ struct RootView: View {
 
             UndoBar(bottomPadding: 104)
 
-            if let message = toast.message {
-                Text(message)
-                    .font(Theme.textFont(Theme.captionSize, weight: .medium))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .background(Theme.ink.opacity(0.92), in: Capsule())
-                    .shadow(color: .black.opacity(0.35), radius: 14, y: 8)
-                    .padding(.bottom, 104)
-                    .transition(.opacity.combined(with: .offset(y: 12)))
-                    .allowsHitTesting(false)
-            }
+            ToastBar(bottomPadding: 104)
         }
         .animation(Theme.sheetAnimation, value: runner.session?.id)
         .onChange(of: scenePhase) { _, newPhase in
@@ -140,6 +129,29 @@ struct RootView: View {
            let shortcut = store.shortcuts.first(where: { $0.id == uuid }) {
             run(shortcut)
             return
+        }
+    }
+}
+
+/// 轻提示外观。RootView 和 sheet 各自挂一份，保证提示出现在当前可见层级。
+struct ToastBar: View {
+    @EnvironmentObject private var toast: ToastCenter
+    var bottomPadding: CGFloat
+
+    var body: some View {
+        Group {
+            if let message = toast.message {
+                Text(message)
+                    .font(Theme.textFont(Theme.captionSize, weight: .medium))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Theme.ink.opacity(0.92), in: Capsule())
+                    .shadow(color: .black.opacity(0.35), radius: 14, y: 8)
+                    .padding(.bottom, bottomPadding)
+                    .transition(.opacity.combined(with: .offset(y: 12)))
+                    .allowsHitTesting(false)
+            }
         }
     }
 }

@@ -11,14 +11,6 @@ struct AddShortcutView: View {
     @State private var query = ""
     @State private var draft: Draft?
 
-    /// true：添加后留在本页继续添加（从「我的快捷」进来）；
-    /// false：添加后关闭本页（首页「＋」原有行为）。
-    private let staysOpenAfterAdd: Bool
-
-    init(staysOpenAfterAdd: Bool = false) {
-        self.staysOpenAfterAdd = staysOpenAfterAdd
-    }
-
     fileprivate struct Draft: Identifiable {
         let id = UUID()
         let app: CapabilityApp
@@ -54,6 +46,9 @@ struct AddShortcutView: View {
             }
         }
         .background(Theme.bg)
+        .overlay(alignment: .bottom) {
+            ToastBar(bottomPadding: 24)
+        }
         .sheet(item: $draft) { draft in
             AddShortcutNamingView(draft: draft) { title in
                 store.add(
@@ -65,7 +60,7 @@ struct AddShortcutView: View {
                     )
                 )
                 toast.show("已添加「\(title)」到末尾")
-                if !staysOpenAfterAdd { dismiss() }
+                // 添加后停留在选动作页，由用户自己关闭，便于连续添加。
             }
         }
     }
@@ -266,6 +261,9 @@ private struct AddShortcutNamingView: View {
             .padding(22)
         }
         .background(Theme.bg)
+        .overlay(alignment: .bottom) {
+            ToastBar(bottomPadding: 16)
+        }
         .interactiveDismissDisabled(isDirty)
         .alert("放弃这条快捷？", isPresented: $showDiscard) {
             Button("放弃修改", role: .destructive) { dismiss() }

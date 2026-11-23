@@ -48,7 +48,7 @@ struct ShortcutListView: View {
                 .environmentObject(store)
         }
         .sheet(isPresented: $adding) {
-            AddShortcutView(staysOpenAfterAdd: true)
+            AddShortcutView()
                 .environmentObject(store)
                 .environmentObject(catalog)
                 .environmentObject(toast)
