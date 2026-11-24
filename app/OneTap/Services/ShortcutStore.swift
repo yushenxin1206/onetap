@@ -1,4 +1,5 @@
 import Foundation
+import AppIntents
 
 @MainActor
 final class ShortcutStore: ObservableObject {
@@ -99,6 +100,8 @@ final class ShortcutStore: ObservableObject {
         }
         OneTapShared.defaults.set(data, forKey: OneTapShared.shortcutsKey)
         shortcuts = decoded
+        // 新增、改名、删除、排序后都走这里，刷新动作库里的快捷候选。
+        OneTapShortcuts.updateAppShortcutParameters()
         return true
     }
 

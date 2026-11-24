@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// 快捷层：管理首页引用，不涉及动作池本身。
 @MainActor
@@ -185,6 +186,13 @@ struct ShortcutListView: View {
                         renaming = shortcut
                     } label: {
                         Label("重命名", systemImage: "pencil")
+                    }
+
+                    Button {
+                        UIPasteboard.general.string = OneTapShared.runURL(id: shortcut.id).absoluteString
+                        toast.show("链接已复制")
+                    } label: {
+                        Label("复制链接", systemImage: "link")
                     }
 
                     Button(role: .destructive) {

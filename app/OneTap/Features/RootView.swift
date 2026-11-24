@@ -124,6 +124,14 @@ struct RootView: View {
             return
         }
 
+        if let queryItems = components?.queryItems,
+           let idValue = queryItems.first(where: { $0.name == "id" })?.value,
+           let uuid = UUID(uuidString: idValue),
+           let shortcut = store.shortcuts.first(where: { $0.id == uuid }) {
+            run(shortcut)
+            return
+        }
+
         let identifier = url.pathComponents.dropFirst().joined(separator: "/")
         if let uuid = UUID(uuidString: identifier),
            let shortcut = store.shortcuts.first(where: { $0.id == uuid }) {
