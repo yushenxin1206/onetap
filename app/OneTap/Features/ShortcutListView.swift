@@ -57,6 +57,10 @@ struct ShortcutListView: View {
         .overlay(alignment: .bottom) {
             UndoBar(bottomPadding: 20)
         }
+        // 这是 sheet，RootView 的 ToastBar 在它下面；本页提示需要自己挂一层。
+        .overlay(alignment: .bottom) {
+            ToastBar(bottomPadding: 20)
+        }
     }
 
     private var list: some View {
