@@ -180,13 +180,6 @@ struct ShortcutListView: View {
             if editMode != .active {
                 Menu {
                     Button {
-                        store.promoteToHero(id: shortcut.id)
-                    } label: {
-                        Label("设为首页主快捷", systemImage: "pin")
-                    }
-                    .disabled(index == 0)
-
-                    Button {
                         renaming = shortcut
                     } label: {
                         Label("重命名", systemImage: "pencil")

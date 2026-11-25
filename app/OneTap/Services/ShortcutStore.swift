@@ -53,17 +53,6 @@ final class ShortcutStore: ObservableObject {
         persist()
     }
 
-    /// 首条即 Hero，置顶通过移动到数组首位实现。
-    func promoteToHero(id: UUID) {
-        guard
-            let index = shortcuts.firstIndex(where: { $0.id == id }),
-            index > 0
-        else { return }
-        let shortcut = shortcuts.remove(at: index)
-        shortcuts.insert(shortcut, at: 0)
-        persist()
-    }
-
     /// 删掉引用了被删除 App / 动作的快捷，避免留下指向空目标的条目。
     @discardableResult
     func removeShortcuts(appID: String) -> Int {
